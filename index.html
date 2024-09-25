@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon link -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #333; /* Dark theme background */
+      color: #f4f4f4; /* Light text */
+      transition: background-color 0.3s, color 0.3s;
+      scroll-behavior: smooth; /* Smooth scrolling */
+    }
+    .theme-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+    }
+    .theme-switch input {
+      width: 40px;
+      height: 20px;
+      cursor: pointer;
+      appearance: none;
+      background: #ccc;
+      border-radius: 20px;
+      outline: none;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .theme-switch input:checked {
+      background: #4B0082; /* Dark purple */
+    }
+    .theme-switch input:checked::before {
+      transform: translateX(20px);
+    }
+    .theme-switch input::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      position: absolute;
+      transition: transform 0.3s;
+    }
+    .container {
+      text-align: center; /* Center the text in the container */
+    }
+    .audio-list {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); /* Five boxes in a row */
+      gap: 15px; /* Space between boxes */
+      list-style: none;
+      padding: 0;
+      width: 100%; /* Full width */
+    }
+    .audio-item {
+      background: #444; /* Dark item background */
+      padding: 20px; /* Increased padding */
+      border: 1px solid #666; /* Darker border */
+      border-radius: 10px; /* Rounded corners */
+      transition: background-color 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch; /* Stretch to fit */
+      height: 150px; /* Fixed height for boxes */
+      position: relative; /* Position for the label */
+    }
+    .audio-item:hover {
+      background-color: #555; /* Darker gray on hover */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    }
+    .audio-item audio {
+      margin-bottom: 10px; /* Space below audio player */
+      width: 100%; /* Full width */
+    }
+    .file-name {
+      position: absolute;
+      bottom: 10px; /* Position at the bottom of the box */
+      font-size: 16px; /* Increased font size for file name */
+      color: #f4f4f4; /* Light text for dark theme */
+      text-align: center;
+      width: 100%; /* Full width for centering */
+    }
+    .download-btn {
+      padding: 15px; /* Increased padding for button */
+      background-color: #7B1FA2; /* Lighter purple */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 18px; /* Increased font size */
+      font-weight: bold; /* Make text bold */
+      width: 100%; /* Full width to fit the box */
+      display: flex; /* Flexbox for centering */
+      align-items: center; /* Center vertically */
+    }
+    .download-btn:hover {
+      background-color: #9C27B0; /* Even lighter purple */
+    }
+    .download-icon {
+      margin-right: 10px; /* Space between icon and text */
+      font-size: 20px; /* Increased icon size */
+    }
+
+    /* Media queries for responsive adjustments */
+    @media (max-width: 800px) {
+      .audio-list {
+        grid-template-columns: repeat(2, 1fr); /* Adjust to two boxes on smaller screens */
+      }
+    }
+    @media (max-width: 500px) {
+      .audio-list {
+        grid-template-columns: 1fr; /* Adjust to one box on very small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="theme-switch">
+    <label for="themeToggle">Dark Theme:</label>
+    <input type="checkbox" id="themeToggle" checked>
+  </div>
+  <div class="container">
+    <h1>YAHAV SAYS</h1>
+    <ul class="audio-list" id="audioList"></ul>
+  </div>
+
+  <script>
+    const audioListElement = document.getElementById('audioList');
+
+    // Loop through numbers 1 to 30
+    for (let i = 1; i <= 50; i++) {
+      const fileName = `${i}.wav`; // File name format
+      const audioItem = document.createElement('li');
+      audioItem.classList.add('audio-item');
+      audioItem.innerHTML = `
+        <audio controls>
+          <source src="${fileName}" type="audio/wav">
+          Your browser does not support the audio element.
+        </audio>
+        <a href="${fileName}" download>
+          <button class="download-btn">
+            <span class="download-icon">📥</span> Download
+          </button>
+        </a>
+        <div class="file-name">${fileName}</div>
+      `;
+      audioListElement.appendChild(audioItem);
+    }
+
+    // Theme switch functionality
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('change', () => {
+      document.body.style.backgroundColor = themeToggle.checked ? '#333' : '#FFF'; // Toggle background color
+      document.body.style.color = themeToggle.checked ? '#f4f4f4' : '#000'; // Toggle text color
+      document.querySelectorAll('.audio-item').forEach(item => {
+        item.style.backgroundColor = themeToggle.checked ? '#444' : '#f0f0f0'; // Toggle item background color
+        item.style.color = themeToggle.checked ? '#f4f4f4' : '#000'; // Toggle item text color
+      });
+    });
+  </script>
+    <h6>real sound counter: 30 real working sounds out of 50</h6>
+	  <h6>*the sounds that dont work are not sounds and will be added soon</h6>
+
+</body>
+</html>
